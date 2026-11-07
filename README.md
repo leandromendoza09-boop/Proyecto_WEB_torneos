@@ -17,11 +17,16 @@ Sistema académico de inscripción a torneos de BJJ, desarrollado con Django y P
    py -m pip install -r requirements.txt
    ```
 
-3. Crear `.env` a partir de `.env.example`, completar las variables de PostgreSQL y reemplazar `SECRET_KEY` por una clave generada localmente:
+3. Si todavía no existe `.env`, crearlo a partir de `.env.example`:
 
    ```powershell
-   Copy-Item .env.example .env
-   py -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+   if (-not (Test-Path .env)) { Copy-Item .env.example .env }
+   ```
+
+   Completar las variables de PostgreSQL. Si `.env` ya existe, conservar sus datos y agregar `SECRET_KEY` si falta. Generar una clave local y copiar la línea resultante al archivo; no publicar ese valor:
+
+   ```powershell
+   py -c "from django.core.management.utils import get_random_secret_key; print('SECRET_KEY=' + get_random_secret_key())"
    ```
 
 4. Crear la base de datos PostgreSQL indicada en `.env` y aplicar las migraciones:
