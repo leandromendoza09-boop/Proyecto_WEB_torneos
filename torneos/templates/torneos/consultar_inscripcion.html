@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Consulta de inscripción</title>
+</head>
+<body>
+    <h1>Consulta de inscripción</h1>
+
+    <p><strong>Número de gestión:</strong> {{ inscripcion.id }}</p>
+    <p><strong>Torneo:</strong> {{ inscripcion.categoria.torneo.nombre }}</p>
+    <p>
+        <strong>Categoría:</strong>
+        {{ inscripcion.categoria.get_cinturon_display }}
+        — {{ inscripcion.categoria.get_division_peso_display }}
+    </p>
+    <p><strong>Estado:</strong> {{ inscripcion.get_estado_display }}</p>
+    <p>Guardá la dirección de esta página para volver a consultar tu inscripción.</p>
+    <a href="{% url 'lista_torneos' %}">Volver al listado</a>
+</body>
+</html>

@@ -16,7 +16,52 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from torneos.views import (
+    consultar_inscripcion,
+    detalle_torneo,
+    gestionar_torneo,
+    lista_torneos,
+    panel_organizador,
+    cancelar_inscripcion,
+    crear_torneo,
+    editar_inscripcion,
+)
+from django.contrib.auth.views import LoginView, LogoutView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("", lista_torneos, name="lista_torneos"),
+    path("torneos/<int:torneo_id>/", detalle_torneo, name="detalle_torneo"),
+    path("inscripciones/<uuid:codigo_consulta>/", consultar_inscripcion, name="consultar_inscripcion"),
+    path(
+        "organizador/ingresar/",
+        LoginView.as_view(
+            template_name="torneos/ingreso_organizador.html",
+            next_page="panel_organizador",
+        ),
+        name="ingreso_organizador",
+    ),
+    path("organizador/", panel_organizador, name="panel_organizador"),
+    path(
+        "organizador/torneos/<int:torneo_id>/",
+        gestionar_torneo,
+        name="gestionar_torneo",
+    ),
+    path(
+        "organizador/inscripciones/<int:inscripcion_id>/cancelar/",
+        cancelar_inscripcion,
+        name="cancelar_inscripcion",
+    ),
+    path("organizador/torneos/crear/", crear_torneo, name="crear_torneo"),
+    path(
+        "organizador/inscripciones/<int:inscripcion_id>/editar/",
+        editar_inscripcion,
+        name="editar_inscripcion",
+    ),   
+    path(
+        "organizador/salir/",
+        LogoutView.as_view(next_page="lista_torneos"),
+        name="salir_organizador",
+    ),
 ]

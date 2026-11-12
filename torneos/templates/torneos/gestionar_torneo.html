@@ -1,0 +1,44 @@
+<h1>Gestionar {{ torneo.nombre }}</h1>
+{% if torneo.inscripciones_cerradas %}
+    <p>Inscripciones cerradas.</p>
+{% else %}
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Cerrar inscripciones</button>
+    </form>
+{% endif %}
+
+<h2>Inscripciones</h2>
+<ul>
+    {% for inscripcion in inscripciones %}
+        <li>
+            {{ inscripcion.nombre }} {{ inscripcion.apellido }}
+            — {{ inscripcion.categoria.get_cinturon_display }}
+            — {{ inscripcion.categoria.get_division_peso_display }}
+            — {{ inscripcion.get_estado_display }}
+            {% if inscripcion.estado == "confirmada" and not torneo.inscripciones_cerradas %}
+    <form method="post" action="{% url 'cancelar_inscripcion' inscripcion.id %}">
+        <a href="{% url 'editar_inscripcion' inscripcion.id %}">Editar inscripción</a>
+        {% csrf_token %}
+        <button type="submit">Cancelar inscripción</button>
+    </form>
+{% endif %}
+        </li>
+    {% empty %}
+        <li>Todavía no hay inscripciones para este torneo.</li>
+    {% endfor %}
+</ul>
+{% if inscripciones.paginator.num_pages > 1 %}
+    <nav>
+        {% if inscripciones.has_previous %}
+            <a href="?pagina={{ inscripciones.previous_page_number }}">Anterior</a>
+        {% endif %}
+
+        Página {{ inscripciones.number }} de {{ inscripciones.paginator.num_pages }}
+
+        {% if inscripciones.has_next %}
+            <a href="?pagina={{ inscripciones.next_page_number }}">Siguiente</a>
+        {% endif %}
+    </nav>
+{% endif %}
+<a href="{% url 'panel_organizador' %}">Volver al panel</a>

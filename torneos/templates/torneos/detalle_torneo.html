@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ torneo.nombre }}</title>
+</head>
+<body>
+    <h1>{{ torneo.nombre }}</h1>
+
+    <p>{{ torneo.descripcion }}</p>
+    <p><strong>Fecha:</strong> {{ torneo.fecha_evento|date:"d/m/Y" }}</p>
+    <p><strong>Lugar:</strong> {{ torneo.direccion }}, {{ torneo.localidad }}</p>
+    <p><strong>Organiza:</strong> {{ torneo.academia.nombre }}</p>
+    <p><strong>Correo de contacto:</strong> {{ torneo.correo_contacto }}</p>
+    <h2>Inscripción al torneo</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ formulario.as_p }}
+        <button type="submit">Confirmar inscripción</button>
+</form>
+<h2>Inscriptos por categoría</h2>
+{% regroup inscriptos_confirmados by categoria as grupos %}
+
+{% for grupo in grupos %}
+    <h3>
+        {{ grupo.grouper.get_cinturon_display }}
+        — {{ grupo.grouper.get_division_peso_display }}
+    </h3>
+    <ul>
+        {% for inscripcion in grupo.list %}
+            <li>{{ inscripcion.nombre }} {{ inscripcion.apellido }} — {{ inscripcion.academia.nombre }}</li>
+        {% endfor %}
+    </ul>
+{% empty %}
+    <p>Todavía no hay inscripciones confirmadas.</p>
+{% endfor %}
+    <a href="{% url 'lista_torneos' %}">Volver al listado</a>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Torneos de BJJ</title>
+</head>
+<body>
+    <h1>Torneos de BJJ</h1>
+{% if user.is_authenticated %}
+    <p><a href="{% url 'panel_organizador' %}">Ir al panel del organizador</a></p>
+{% else %}
+    <p><a href="{% url 'ingreso_organizador' %}">Ingresar como organizador</a></p>
+{% endif %}
+    <ul>
+        {% for torneo in torneos %}
+            <li>
+                <strong>
+    <a href="{% url 'detalle_torneo' torneo.id %}">{{ torneo.nombre }}</a>
+</strong>
+                — {{ torneo.fecha_evento|date:"d/m/Y" }}
+                — {{ torneo.localidad }}
+            </li>
+        {% empty %}
+            <li>Todavía no hay torneos cargados.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

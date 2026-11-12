@@ -1,0 +1,9 @@
+<h1>Crear torneo</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ formulario.as_p }}
+    <button type="submit">Guardar torneo</button>
+</form>
+
+<a href="{% url 'panel_organizador' %}">Volver al panel</a>
