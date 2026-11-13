@@ -1,3 +1,8 @@
+{% extends "torneos/base.html" %}
+
+{% block titulo %}Panel del organizador{% endblock %}
+
+{% block contenido %}
 <h1>Panel del organizador</h1>
 <p>Sesión iniciada como: <strong>{% firstof user.get_full_name user.username %}</strong></p>
 
@@ -10,16 +15,27 @@
     <p>Cuenta validada — {{ organizador.academia.nombre }}</p>
     <h2>Mis torneos</h2>
     <p><a href="{% url 'crear_torneo' %}">Crear torneo</a></p>
-    <ul>
-        {% for torneo in torneos %}
-            <li>
-    <a href="{% url 'gestionar_torneo' torneo.id %}">{{ torneo.nombre }}</a>
-    — {{ torneo.fecha_evento|date:"d/m/Y" }}
-</li>
-        {% empty %}
-            <li>Tu academia todavía no tiene torneos.</li>
-        {% endfor %}
-    </ul>
+    {% for torneo in torneos %}
+    <article class="tarjeta">
+        <h3>{{ torneo.nombre }}</h3>
+        <p>{{ torneo.fecha_evento|date:"d/m/Y" }} · {{ torneo.localidad }}</p>
+
+        <p>
+            {% if torneo.inscripciones_cerradas %}
+                Inscripciones cerradas
+            {% endif %}
+        </p>
+
+        <p>
+            <a class="boton-editar" href="{% url 'gestionar_torneo' torneo.id %}">
+                Gestionar torneo
+            </a>
+        </p>
+    </article>
+{% empty %}
+    <p>Tu academia todavía no tiene torneos.</p>
+{% endfor %}
 {% else %}
     <p>Tu cuenta no está habilitada para administrar torneos.</p>
 {% endif %}
+{% endblock %}

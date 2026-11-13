@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Consulta de inscripción</title>
-</head>
-<body>
-    <h1>Consulta de inscripción</h1>
+{% extends "torneos/base.html" %}
 
+{% block titulo %}Consulta de inscripción{% endblock %}
+
+{% block contenido %}
+    <h1>Consulta de inscripción</h1>
+    <section class="tarjeta">
     <p><strong>Número de gestión:</strong> {{ inscripcion.id }}</p>
     <p><strong>Torneo:</strong> {{ inscripcion.categoria.torneo.nombre }}</p>
     <p>
@@ -16,6 +14,6 @@
     </p>
     <p><strong>Estado:</strong> {{ inscripcion.get_estado_display }}</p>
     <p>Guardá la dirección de esta página para volver a consultar tu inscripción.</p>
+    </section>
     <a href="{% url 'lista_torneos' %}">Volver al listado</a>
-</body>
-</html>
+{% endblock %}

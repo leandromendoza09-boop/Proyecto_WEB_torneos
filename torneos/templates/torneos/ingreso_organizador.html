@@ -1,16 +1,13 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Ingreso del organizador</title>
-</head>
-<body>
+{% extends "torneos/base.html" %}
+
+{% block titulo %}Ingreso del organizador{% endblock %}
+
+{% block contenido %}
     <h1>Ingreso del organizador</h1>
 
-    <form method="post">
+    <form method="post" class="tarjeta formulario">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Ingresar</button>
     </form>
-</body>
-</html>
+{% endblock %}

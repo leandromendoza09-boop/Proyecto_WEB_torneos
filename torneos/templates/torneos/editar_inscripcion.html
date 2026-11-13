@@ -1,9 +1,15 @@
+{% extends "torneos/base.html" %}
+
+{% block titulo %}Editar inscripción{% endblock %}
+
+{% block contenido %}
 <h1>Editar inscripción — {{ torneo.nombre }}</h1>
 
-<form method="post">
+<form method="post" class="tarjeta formulario">
     {% csrf_token %}
     {{ formulario.as_p }}
     <button type="submit">Guardar cambios</button>
 </form>
 
 <a href="{% url 'gestionar_torneo' torneo.id %}">Volver a inscripciones</a>
+{% endblock %}

@@ -1,3 +1,8 @@
+{% extends "torneos/base.html" %}
+
+{% block titulo %}Gestionar {{ torneo.nombre }}{% endblock %}
+
+{% block contenido %}
 <h1>Gestionar {{ torneo.nombre }}</h1>
 {% if torneo.inscripciones_cerradas %}
     <p>Inscripciones cerradas.</p>
@@ -17,11 +22,16 @@
             — {{ inscripcion.categoria.get_division_peso_display }}
             — {{ inscripcion.get_estado_display }}
             {% if inscripcion.estado == "confirmada" and not torneo.inscripciones_cerradas %}
+    <div class="acciones-inscripcion">
+    <a class="boton-editar" href="{% url 'editar_inscripcion' inscripcion.id %}">
+        Editar inscripción
+    </a>
+
     <form method="post" action="{% url 'cancelar_inscripcion' inscripcion.id %}">
-        <a href="{% url 'editar_inscripcion' inscripcion.id %}">Editar inscripción</a>
         {% csrf_token %}
         <button type="submit">Cancelar inscripción</button>
     </form>
+</div>
 {% endif %}
         </li>
     {% empty %}
@@ -42,3 +52,4 @@
     </nav>
 {% endif %}
 <a href="{% url 'panel_organizador' %}">Volver al panel</a>
+{% endblock %}

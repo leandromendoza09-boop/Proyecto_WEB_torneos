@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ torneo.nombre }}</title>
-</head>
-<body>
+{% extends "torneos/base.html" %}
+
+{% block titulo %}{{ torneo.nombre }}{% endblock %}
+
+{% block contenido %}
     <h1>{{ torneo.nombre }}</h1>
 
     <p>{{ torneo.descripcion }}</p>
@@ -14,7 +12,7 @@
     <p><strong>Correo de contacto:</strong> {{ torneo.correo_contacto }}</p>
     <h2>Inscripción al torneo</h2>
 
-<form method="post">
+<form method="post" class="tarjeta formulario">
     {% csrf_token %}
     {{ formulario.as_p }}
         <button type="submit">Confirmar inscripción</button>
@@ -36,5 +34,4 @@
     <p>Todavía no hay inscripciones confirmadas.</p>
 {% endfor %}
     <a href="{% url 'lista_torneos' %}">Volver al listado</a>
-</body>
-</html>
+{% endblock %}
