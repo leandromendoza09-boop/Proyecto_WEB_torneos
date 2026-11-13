@@ -1,22 +1,31 @@
 {% extends "torneos/base.html" %}
 
 {% block contenido %}
-    <h1>Próximos torneos</h1>
-
-    {% if user.is_authenticated %}
-        <p><a href="{% url 'panel_organizador' %}">Ir al panel del organizador</a></p>
-    {% else %}
-        <p><a href="{% url 'ingreso_organizador' %}">Ingresar como organizador</a></p>
-    {% endif %}
+    <div class="cabecera-pagina">
+        <div>
+            <h1>Próximos torneos</h1>
+            <p class="subtitulo">Consultá los eventos disponibles e inscribite en tu categoría.</p>
+        </div>
+        {% if user.is_authenticated %}
+            <a class="boton-primario" href="{% url 'panel_organizador' %}">Ir al panel del organizador</a>
+        {% else %}
+            <a class="boton-editar" href="{% url 'ingreso_organizador' %}">Ingresar como organizador</a>
+        {% endif %}
+    </div>
 
     {% for torneo in torneos %}
-        <article class="tarjeta">
-            <h2>
-                <a href="{% url 'detalle_torneo' torneo.id %}">{{ torneo.nombre }}</a>
-            </h2>
-            <p>{{ torneo.fecha_evento|date:"d/m/Y" }} · {{ torneo.localidad }}</p>
+        <article class="tarjeta tarjeta-torneo">
+            <div>
+                <h2>
+                    <a href="{% url 'detalle_torneo' torneo.id %}">{{ torneo.nombre }}</a>
+                </h2>
+                <p>📅 {{ torneo.fecha_evento|date:"d/m/Y" }} · 📍 {{ torneo.localidad }}</p>
+            </div>
+            <a class="boton-primario" href="{% url 'detalle_torneo' torneo.id %}">Ver e inscribirse</a>
         </article>
     {% empty %}
-        <p>Todavía no hay torneos cargados.</p>
+        <div class="estado-vacio">
+            <p>Todavía no hay torneos cargados.</p>
+        </div>
     {% endfor %}
 {% endblock %}

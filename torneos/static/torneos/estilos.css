@@ -1,87 +1,213 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
-    background: #f2f5f8;
-    color: #172536;
-    font: 1rem/1.6 system-ui, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: #f8fafc;
+    font: 1rem/1.6 system-ui, -apple-system, sans-serif;
+    background: linear-gradient(rgba(10, 22, 38, 0.62), rgba(10, 22, 38, 0.62)),
+                url("https://i.pinimg.com/originals/e1/61/de/e161de37204c05fbf54a815e1dcee2d2.gif") center / cover fixed no-repeat;
 }
 
-header {
-    background: #14263b;
+.encabezado {
+    background: rgba(13, 27, 42, 0.9);
+    backdrop-filter: blur(8px);
     padding: 1rem clamp(1rem, 5vw, 3rem);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-header a {
-    color: white;
-    font-weight: bold;
+.encabezado-contenido {
+    max-width: 56rem;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.marca {
+    color: #ffffff;
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
     text-decoration: none;
 }
 
+.navegacion {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.navegacion a {
+    color: #dbe8f5;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.navegacion a:hover {
+    color: #ffffff;
+}
+
+.nav-boton {
+    padding: 0.45rem 0.9rem;
+    border-radius: 8px;
+    background: #2563eb;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+}
+
+.nav-boton:hover {
+    background: #1d4ed8;
+}
+
 main {
+    flex: 1;
+    width: 100%;
     max-width: 52rem;
-    margin: 2rem auto;
+    margin: 2.5rem auto;
     padding: 0 1rem;
+    text-align: center;
+}
+
+/* Título y subtítulo centrados en blanco sobre el fondo */
+main h1,
+main h2 {
+    color: #ffffff;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+main h1 {
+    font-size: 2.2rem;
+    margin: 0 0 0.4rem;
+}
+
+main p {
+    color: #e2ecf7;
+}
+
+.tarjeta,
+.formulario {
+    color: #172536;
+}
+
+.tarjeta h2,
+.formulario h2 {
+    color: #0f2942;
+    text-shadow: none;
+}
+
+.cabecera {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
 }
 
 a {
-    color: #1c5493;
+    color: #1d4ed8;
 }
 
 .tarjeta {
-    margin: 1rem 0;
-    padding: 1rem 1.25rem;
-    background: white;
-    border: 1px solid #d6dfe8;
-    border-radius: 10px;
+    margin: 1.25rem auto;
+    padding: 1.4rem 1.6rem;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-left: 5px solid #2563eb;
+    border-radius: 14px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.22);
+    text-align: center;
 }
 
 .tarjeta h2 {
-    margin: 0;
+    margin: 0 0 0.35rem;
+}
+
+.tarjeta h2 a {
+    color: #0f2942;
+    text-decoration: none;
+}
+
+.tarjeta h2 a:hover {
+    color: #2563eb;
 }
 
 .tarjeta p {
-    margin: .25rem 0 0;
+    margin: 0.25rem 0 0.9rem;
+    color: #475569;
 }
+
+/* Botones y enlaces tipo botón */
+button,
+.boton,
+.boton-primario,
+.cabecera a,
+.tarjeta > a {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    border: 0;
+    border-radius: 8px;
+    background: #2563eb;
+    color: #ffffff;
+    font: inherit;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+}
+
+button:hover,
+.boton:hover,
+.boton-primario:hover,
+.cabecera a:hover,
+.tarjeta > a:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+}
+
+.formulario {
+    text-align: left;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 1.5rem;
+    border-radius: 14px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
 .formulario label {
     display: block;
     font-weight: 600;
+    margin-bottom: 0.25rem;
 }
 
 .formulario input:not([type="hidden"]),
 .formulario select,
 .formulario textarea {
-    box-sizing: border-box;
     width: 100%;
-    max-width: 28rem;
-    padding: .55rem .65rem;
-    border: 1px solid #8797a8;
+    padding: 0.55rem 0.65rem;
+    border: 1px solid #94a3b8;
     border-radius: 6px;
     font: inherit;
-}
-
-button {
-    padding: .6rem 1rem;
-    border: 0;
-    border-radius: 6px;
-    background: #1c5493;
-    color: white;
-    font: inherit;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-button:hover {
-    background: #14263b;
 }
 
 .errorlist {
-    color: #9c2222;
+    color: #b91c1c;
+    text-align: left;
 }
+
 .acciones-inscripcion {
     display: flex;
     align-items: center;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 1rem;
-    margin: .5rem 0 1rem;
+    margin: 0.5rem 0 1rem;
 }
 
 .acciones-inscripcion form {
@@ -90,14 +216,21 @@ button:hover {
 
 .boton-editar {
     display: inline-block;
-    padding: .6rem 1rem;
-    border-radius: 6px;
-    background: #e6eef8;
-    color: #1c5493;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    background: #e0ecff;
+    color: #1d4ed8;
     font-weight: 600;
     text-decoration: none;
 }
 
 .boton-editar:hover {
-    background: #d4e3f4;
+    background: #c7ddff;
+}
+
+.pie {
+    text-align: center;
+    padding: 1.2rem;
+    color: #cbd5e1;
+    font-size: 0.9rem;
 }

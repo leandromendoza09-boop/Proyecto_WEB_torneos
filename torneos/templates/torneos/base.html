@@ -5,15 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block titulo %}Torneos de BJJ{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'torneos/estilos.css' %}">
+    <link rel="stylesheet" href="{% static 'torneos/estilos.css' %}?v=2">
 </head>
 <body>
-    <header>
-        <a href="{% url 'lista_torneos' %}">Torneos de BJJ</a>
+    <header class="encabezado">
+        <div class="encabezado-contenido">
+            <a class="marca" href="{% url 'lista_torneos' %}">🥋 Torneos de BJJ</a>
+            <nav class="navegacion">
+                <a href="{% url 'lista_torneos' %}">Torneos</a>
+                {% if user.is_authenticated %}
+                    <a class="nav-boton" href="{% url 'panel_organizador' %}">Panel organizador</a>
+                {% else %}
+                    <a class="nav-boton" href="{% url 'ingreso_organizador' %}">Ingreso organizador</a>
+                {% endif %}
+            </nav>
+        </div>
     </header>
 
     <main>
         {% block contenido %}{% endblock %}
     </main>
+
+    <footer class="pie">
+        <p>Sistema de inscripción a torneos de BJJ · {% now "Y" %}</p>
+    </footer>
 </body>
 </html>
